@@ -53,6 +53,7 @@ This node sends the processed data over MQTT with the specified topic name to th
 This node establishes a connection to the MQTT .
 
 ## Flow chart
+```mermaid
 graph TD
   A["TCP In: 192.168.178.63:10001"] -->|Data Stream| B["Function: Filter by Payload[0] == 14"]
   B -->|If true| C["Buffer Parser"]
@@ -71,6 +72,7 @@ graph TD
     CP["uint8: outputState"]
     CP["int16be: temp_chamber_max"]
   end
+```
 
 ## Usage
 
