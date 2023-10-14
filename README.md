@@ -62,17 +62,19 @@ graph TD
   B -->|If false| E["Function: Filter by Payload[0] != 14"]
   E -->|Discarded Data| F["Debug"]
 
-  subgraph Buffer Parser
-    CP["uint16be: temp_chamber"]
-    CP["uint8: shutter_current"]
-    CP["uint8: shutter_target"]
-    CP["uint8: state"]
-    CP["uint8: error"]
-    CP["uint8: output"]
-    CP["uint8: outputState"]
-    CP["int16be: temp_chamber_max"]
-  end
 ```
+### Buffer Parser
+| Item              | Type      | Name             | Offset | Length | Offset Bit | Scale | Mask |
+|-------------------|-----------|------------------|--------|--------|------------|-------|------|
+| temp_chamber      | uint16be  |                | 2      | 1      | 0          | 1     |      |
+| shutter_current   | uint8     | shutter_current  | 4      | 1      | 0          | 1     |      |
+| shutter_target    | uint8     | shutter_target   | 5      | 1      | 0          | 1     |      |
+| state             | uint8     | state            | 6      | 1      | 0          | 1     |      |
+| error             | uint8     | error            | 7      | 1      | 0          | 1     |      |
+| output            | uint8     | output           | 8      | 1      | 0          | 1     |      |
+| outputState       | uint8     | outputState      | 9      | 1      | 0          | 1     |      |
+| temp_chamber_max  | int16be   |                | 10     | 1      | 0          | 1     |      |
+
 
 ## Usage
 
