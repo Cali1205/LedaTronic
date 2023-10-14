@@ -1,0 +1,240 @@
+[
+    {
+        "id": "f76d8a9ed6accb55",
+        "type": "tab",
+        "label": "LedaTronic",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "047aabbdb10e8c0d",
+        "type": "mqtt out",
+        "z": "f76d8a9ed6accb55",
+        "name": "",
+        "topic": "LedaData",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "a00ca8c10c25b752",
+        "x": 1460,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "21fca751d74b1904",
+        "type": "tcp in",
+        "z": "f76d8a9ed6accb55",
+        "name": "",
+        "server": "client",
+        "host": "192.168.178.63",
+        "port": "10001",
+        "datamode": "stream",
+        "datatype": "buffer",
+        "newline": "",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 510,
+        "y": 480,
+        "wires": [
+            [
+                "3118705e6004e469",
+                "893c98e35bdef259"
+            ]
+        ]
+    },
+    {
+        "id": "f19be3c76a3af1d1",
+        "type": "debug",
+        "z": "f76d8a9ed6accb55",
+        "d": true,
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "3118705e6004e469",
+        "type": "function",
+        "z": "f76d8a9ed6accb55",
+        "name": "",
+        "func": "if (msg.payload[0] === 14) {\nreturn msg;\n}",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 580,
+        "wires": [
+            [
+                "18bc92da63fae7b0"
+            ]
+        ]
+    },
+    {
+        "id": "893c98e35bdef259",
+        "type": "function",
+        "z": "f76d8a9ed6accb55",
+        "name": "",
+        "func": "if (msg.payload[0] !== 14) {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 380,
+        "wires": [
+            [
+                "f19be3c76a3af1d1"
+            ]
+        ]
+    },
+    {
+        "id": "18bc92da63fae7b0",
+        "type": "buffer-parser",
+        "z": "f76d8a9ed6accb55",
+        "name": "",
+        "data": "payload",
+        "dataType": "msg",
+        "specification": "spec",
+        "specificationType": "ui",
+        "items": [
+            {
+                "type": "uint16be",
+                "name": "temp_chamber",
+                "offset": 2,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "uint8",
+                "name": "shutter_current",
+                "offset": 4,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "uint8",
+                "name": "shutter_target",
+                "offset": 5,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "uint8",
+                "name": "state",
+                "offset": 6,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "uint8",
+                "name": "error",
+                "offset": 7,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "uint8",
+                "name": "output",
+                "offset": 8,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "uint8",
+                "name": "outputState",
+                "offset": 9,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            },
+            {
+                "type": "int16be",
+                "name": "temp_chamber_max",
+                "offset": 10,
+                "length": 1,
+                "offsetbit": 0,
+                "scale": "1",
+                "mask": ""
+            }
+        ],
+        "swap1": "",
+        "swap2": "",
+        "swap3": "",
+        "swap1Type": "swap",
+        "swap2Type": "swap",
+        "swap3Type": "swap",
+        "msgProperty": "payload",
+        "msgPropertyType": "str",
+        "resultType": "keyvalue",
+        "resultTypeType": "return",
+        "multipleResult": false,
+        "fanOutMultipleResult": false,
+        "setTopic": true,
+        "outputs": 1,
+        "x": 1170,
+        "y": 580,
+        "wires": [
+            [
+                "047aabbdb10e8c0d"
+            ]
+        ]
+    },
+    {
+        "id": "a00ca8c10c25b752",
+        "type": "mqtt-broker",
+        "name": "<mqttBroker>",
+        "broker": "<mqttBroker>",
+        "port": "1883",
+        "clientid": "Leda",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
